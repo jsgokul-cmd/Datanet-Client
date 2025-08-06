@@ -37,9 +37,18 @@ install_ada() {
 
     execute_step 6 "Remove ada profile" 'ada profile delete --profile redshift'
 
-    execute_step 7 "Updating ada credentials" 'ada credentials update --account=862814238953 --provider=conduit --role=IibsAdminAccess-DO-NOT-DELETE --profile=redshift --once'
+    execute_step 7 "Updating AWS config" '
+    mkdir -p ~/.aws
+    if [ ! -f ~/.aws/config ]; then
+        touch ~/.aws/config
+    fi
+    if ! grep -q "\[default\]" ~/.aws/config; then
+        echo -e "\n[default]\nregion=us-east-1\noutput=json" >> ~/.aws/config
+    fi'
 
-    execute_step 8 "Adding ada profile" 'ada profile add --account=862814238953 --profile=redshift --provider=conduit --role=RedshiftSDOAccessRole'
+    execute_step 8 "Updating ada credentials" 'ada credentials update --account=862814238953 --provider=conduit --role=IibsAdminAccess-DO-NOT-DELETE --profile=redshift --once'
+
+    execute_step 9 "Adding ada profile" 'ada profile add --account=862814238953 --profile=redshift --provider=conduit --role=RedshiftSDOAccessRole'
 }
 
 
