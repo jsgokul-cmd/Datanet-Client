@@ -40,7 +40,7 @@ install_ada() {
     execute_step 9 "Adding ada profile" 'ada profile add --account=862814238953 --profile=redshift --provider=conduit --role=RedshiftSDOAccessRole'
 }
 
-read -p "If command not found: toolbox? (Y/N): " install_choice
+read -p "Would you like to install Toolbox as well? (Y/N): " install_choice
 
 case $install_choice in
     [Yy]*)
