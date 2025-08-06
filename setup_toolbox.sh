@@ -37,9 +37,9 @@ install_ada() {
 
     execute_step 6 "Remove ada profile" 'ada profile delete --profile redshift'
 
-    execute_step 7 "Adding ada profile" 'ada profile add --account=862814238953 --profile=redshift --provider=conduit --role=RedshiftSDOAccessRole'
+    execute_step 7 "Updating ada credentials" 'ada credentials update --account=862814238953 --provider=conduit --role=IibsAdminAccess-DO-NOT-DELETE --profile=redshift --once'
 
-    execute_step 8 "Updating ada credentials" 'ada credentials update --account=862814238953 --provider=conduit --role=IibsAdminAccess-DO-NOT-DELETE --profile=redshift --once'
+    execute_step 8 "Adding ada profile" 'ada profile add --account=862814238953 --profile=redshift --provider=conduit --role=RedshiftSDOAccessRole'
 }
 
 
