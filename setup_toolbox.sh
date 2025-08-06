@@ -1,18 +1,10 @@
 #!/bin/bash
 
 execute_step() {
-    echo "Step $1: $2"
-    sleep 2  
     eval "$3"
-    echo "Step $1 completed"
-    echo "-------------------"
-    sleep 1  
 }
 
 install_toolbox() {
-    echo "Starting ToolBox installation..."
-    sleep 1
-
     execute_step 1 "Downloading toolbox bootstrap script" 'curl -X POST \
         --data '"'"'{"os":"osx"}'"'"' \
         -H "Authorization: $(curl -L \
@@ -30,9 +22,6 @@ install_toolbox() {
 }
 
 install_ada() {
-    echo "Starting Ada installation and configuration..."
-    sleep 1
-
     execute_step 5 "Installing ada using toolbox" 'toolbox install ada'
 
     execute_step 6 "Remove ada profile" 'ada profile delete --profile redshift'
@@ -51,15 +40,16 @@ install_ada() {
     execute_step 9 "Adding ada profile" 'ada profile add --account=862814238953 --profile=redshift --provider=conduit --role=RedshiftSDOAccessRole'
 }
 
-
 read -p "If command not found: toolbox? (Y/N): " install_choice
 
 case $install_choice in
     [Yy]*)
+        echo "DataClient Installing..."
         install_toolbox
         install_ada
         ;;
     [Nn]*)
+        echo "DataClient Installing..."
         install_ada
         ;;
     *)
